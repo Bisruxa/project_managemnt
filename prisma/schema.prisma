@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  firstName String
+  lastName String
+  password String
+
+  projects Project[]
+  tasks Task[]
+}
+
+model Project{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  name String
+  ownerId String
+  owner User @relation(fields: [ownerId], references: [id])
+  // this mean owner have a relation with this fields of owner id that maps to the reference of the user id
+  description String?
+  due DateTime
+  deleted Boolean @default(false)
+ tasks Task[]
+ @@unique([ownerId,name])
+// This will ensure that a user cannot have two projects with the same name
+ 
+ @@index([ownerId,id])
+  // This will create an index on ownerId and id for faster lookups
+  // Useful for queries that filter by ownerId or sort by id
+}
+enum TASK_STATUS{
+  NOT_STARTED
+  STARTED
+  COMPLETED
+}
+model Task{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  name String
+  status TASK_STATUS @default(NOT_STARTED)
+  projectId String
+  project Project @relation(fields: [projectId], references: [id])
+  ownerid String
+  owner User @relation(fields: [ownerid], references: [id])
+  due DateTime
+  deleted Boolean @default(false)
+  description String?
+  @@index([ownerid])
+
+}
