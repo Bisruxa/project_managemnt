@@ -1,5 +1,5 @@
 import { hashPassword } from "@lib/auth";
-import { db } from "@lib/db";
+import { db } from "../lib/data";
 import { TASK_STATUS } from "@prisma/client";
 
 const getRandomTaskStatus = () => {
@@ -40,9 +40,10 @@ async function main() {
         data: new Array(5).fill(1).map((_, i) => ({
           name: `Task ${i}`,
           description: `Description for task ${i}`,
-          ownerId: user.id,
+          ownerid: user.id,
           projectId: project.id,
           status: getRandomTaskStatus(),
+          due: new Date(2022, 11, 25),
         })),
       })
     )
