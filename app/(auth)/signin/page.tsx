@@ -1,3 +1,8 @@
-export default function Signin(){
-  return <div>Signin</div>
+import Auth from "@/components/authComponent"
+export default function SignInPage (){
+return (
+  <div>
+    <Auth mode='signin'/>
+  </div>
+)
 }

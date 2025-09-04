@@ -26,13 +26,9 @@ body {
 }
 
 .rainbow-mesh {
-  background: radial-gradient(at 20% 30%, #ff0000 0%, transparent 50%), /* Red */
-              radial-gradient(at 80% 20%, #ff7f00 0%, transparent 50%), /* Orange */
-              radial-gradient(at 60% 70%, #ffff00 0%, transparent 50%), /* Yellow */
-              radial-gradient(at 30% 80%, #00ff00 0%, transparent 50%), /* Green */
-              radial-gradient(at 90% 60%, #0000ff 0%, transparent 50%), /* Blue */
-              radial-gradient(at 40% 10%, #4b0082 0%, transparent 50%), /* Indigo */
-              radial-gradient(at 70% 50%, #8b00ff 0%, transparent 50%); /* Violet */
+  background: radial-gradient(at 80% 60%, #0000ff 0%, transparent 50%), 
+              radial-gradient(at 40% 10%, #4b0082 0%, transparent 50%), 
+              radial-gradient(at 70% 50%, #8b00ff 0%, transparent 50%);
   background-color: #000; /* Fallback black */
   background-blend-mode: screen;
 }
